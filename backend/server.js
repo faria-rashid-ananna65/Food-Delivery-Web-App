@@ -4,8 +4,6 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import path from "path";
-import { fileURLToPath } from "url";
 import connectDB from "./config/db.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
@@ -17,9 +15,6 @@ import orderRoutes from "./routes/orderRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 connectDB();
 
 const app = express();
@@ -27,7 +22,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "https://foodexpress-ibne.onrender.com",
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
   })
 );
@@ -43,13 +38,8 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/admin", adminRoutes);
 
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-app.get("*", (req, res) => {
-  if (req.path.startsWith("/api")) {
-    return res.status(404).json({ success: false, message: "API route not found" });
-  }
-  res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
+app.get("/", (req, res) => {
+  res.json({ message: "Food Delivery API is running" });
 });
 
 app.use(errorHandler);
