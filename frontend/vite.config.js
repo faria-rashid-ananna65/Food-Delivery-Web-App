@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": {
-        target: "https://foodexpress-ibne.onrender.com/",
+        target: "https://foodexpress-ibne.onrender.com",
         changeOrigin: true,
         secure: false,
       },
