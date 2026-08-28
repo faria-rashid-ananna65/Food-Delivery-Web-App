@@ -36,8 +36,8 @@ function ScrollToTop() {
   useEffect(() => {
     gsap.to(window, {
       scrollTo: { y: 0 },
-      duration: 0.6,
-      ease: "power2.inOut",
+      duration: 0.2,
+      ease: "power2.out",
     });
   }, [pathname]);
 
@@ -59,8 +59,8 @@ function App() {
         if (el) {
           gsap.to(window, {
             scrollTo: { y: el, offsetY: 80 },
-            duration: 0.8,
-            ease: "power2.inOut",
+            duration: 0.3,
+            ease: "power2.out",
           });
         }
       }
