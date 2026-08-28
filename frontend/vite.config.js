@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": {
-        target: "https://foodexpress-3jp6.onrender.com",
+        target: "http://localhost:5000",
         changeOrigin: true,
         secure: false,
       },
