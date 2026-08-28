@@ -36,7 +36,6 @@ API.interceptors.response.use(
       if (
         !window.location.pathname.includes("/login") &&
         !window.location.pathname.includes("/signup") &&
-        !window.location.pathname.includes("/verify-otp") &&
         !window.location.pathname.includes("/admin-login")
       ) {
         window.location.href = "/login";

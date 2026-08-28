@@ -22,7 +22,7 @@ const Signup = () => {
       setLoading(true);
       const result = await signup(data.name, data.email, data.password);
       toast.success("Account created!");
-      navigate("/verify-otp", { state: { userId: result.user?._id } });
+      navigate("/");
     } catch (error) {
       toast.error(error.response?.data?.message || "Signup failed");
     } finally {

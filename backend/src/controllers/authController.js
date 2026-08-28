@@ -1,8 +1,6 @@
 import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 import { sendTokenResponse } from "../utils/generateToken.js";
-import { generateOTP } from "../utils/otp.js";
-import { sendOTPEmail } from "../utils/sendEmail.js";
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
@@ -34,64 +32,6 @@ export const signup = async (req, res, next) => {
     });
 
     sendTokenResponse(user, 201, res);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const verifyOTP = async (req, res, next) => {
-  try {
-    const { userId, otp } = req.body;
-
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    if (user.isVerified) {
-      return res.status(400).json({ message: "Email already verified" });
-    }
-
-    if (!user.otp || user.otpExpires < Date.now()) {
-      return res.status(400).json({ message: "OTP has expired. Please request a new one." });
-    }
-
-    if (user.otp !== otp) {
-      return res.status(400).json({ message: "Invalid OTP" });
-    }
-
-    user.isVerified = true;
-    user.otp = null;
-    user.otpExpires = null;
-    await user.save();
-
-    sendTokenResponse(user, 200, res);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const resendOTP = async (req, res, next) => {
-  try {
-    const { userId } = req.body;
-
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    if (user.isVerified) {
-      return res.status(400).json({ message: "Email already verified" });
-    }
-
-    const otp = generateOTP();
-    user.otp = otp;
-    user.otpExpires = new Date(Date.now() + 10 * 60 * 1000);
-    await user.save();
-
-    await sendOTPEmail(user.email, otp);
-
-    res.json({ success: true, message: "OTP resent to your email" });
   } catch (error) {
     next(error);
   }

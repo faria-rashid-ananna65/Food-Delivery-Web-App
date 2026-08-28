@@ -37,20 +37,6 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
-  const verifyOTP = async (userId, otp) => {
-    const { data } = await API.post("/auth/verify-otp", { userId, otp });
-    setUser(data.user);
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-    }
-    return data;
-  };
-
-  const resendOTP = async (userId) => {
-    const { data } = await API.post("/auth/resend-otp", { userId });
-    return data;
-  };
-
   const login = async (email, password) => {
     const { data } = await API.post("/auth/login", { email, password });
     setUser(data.user);
@@ -84,8 +70,6 @@ export const AuthProvider = ({ children }) => {
         signup,
         login,
         logout,
-        verifyOTP,
-        resendOTP,
         updateProfile,
         setUser,
       }}

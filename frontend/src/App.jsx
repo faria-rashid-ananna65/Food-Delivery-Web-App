@@ -21,7 +21,6 @@ import PlaceOrder from "./pages/user/PlaceOrder";
 import Orders from "./pages/user/Orders";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
-import VerifyOTP from "./pages/auth/VerifyOTP";
 import AdminLogin from "./pages/auth/AdminLogin";
 
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -81,7 +80,6 @@ function App() {
         <Route path="/login" element={<><Navbar /><Login /><Footer /></>} />
         <Route path="/admin-login" element={<><Navbar /><AdminLogin /><Footer /></>} />
         <Route path="/signup" element={<><Navbar /><Signup /><Footer /></>} />
-        <Route path="/verify-otp" element={<><Navbar /><VerifyOTP /><Footer /></>} />
 
         <Route path="/" element={<><Navbar /><Home /><Footer /></>} />
         <Route path="/menu" element={<><Navbar /><Menu /><Footer /></>} />
