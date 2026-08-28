@@ -6,10 +6,11 @@ import app from "./src/app.js";
 
 connectDB();
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-export default app;
+if (process.env.VERCEL) {
+  export default app;
+} else {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
