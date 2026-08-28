@@ -137,30 +137,6 @@ export const getMyOrders = async (req, res, next) => {
   }
 };
 
-export const getOrderById = async (req, res, next) => {
-  try {
-    const order = await Order.findById(req.params.id).populate(
-      "user",
-      "name email"
-    );
-
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
-    }
-
-    if (
-      req.user.role !== "admin" &&
-      order.user._id.toString() !== req.user._id.toString()
-    ) {
-      return res.status(403).json({ message: "Not authorized" });
-    }
-
-    res.json({ success: true, order });
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const getAllOrders = async (req, res, next) => {
   try {
     const { status } = req.query;
@@ -215,21 +191,6 @@ export const updateOrderStatus = async (req, res, next) => {
       "name email"
     );
     res.json({ success: true, order: updatedOrder });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const deleteOrder = async (req, res, next) => {
-  try {
-    const order = await Order.findById(req.params.id);
-
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
-    }
-
-    await Order.findByIdAndDelete(req.params.id);
-    res.json({ success: true, message: "Order deleted successfully" });
   } catch (error) {
     next(error);
   }

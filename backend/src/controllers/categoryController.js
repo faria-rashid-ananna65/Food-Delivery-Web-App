@@ -11,18 +11,6 @@ export const getCategories = async (req, res, next) => {
   }
 };
 
-export const getCategoryById = async (req, res, next) => {
-  try {
-    const category = await Category.findById(req.params.id);
-    if (!category) {
-      return res.status(404).json({ message: "Category not found" });
-    }
-    res.json({ success: true, category });
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const createCategory = async (req, res, next) => {
   try {
     const { name } = req.body;

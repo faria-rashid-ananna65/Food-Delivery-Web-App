@@ -1,7 +1,6 @@
 import express from "express";
 import {
   getMenus,
-  getMenuById,
   createMenu,
   updateMenu,
   deleteMenu,
@@ -12,7 +11,6 @@ import upload from "../middleware/upload.js";
 const router = express.Router();
 
 router.get("/", getMenus);
-router.get("/:id", getMenuById);
 router.post("/", protect, adminOnly, upload.single("image"), createMenu);
 router.put("/:id", protect, adminOnly, upload.single("image"), updateMenu);
 router.delete("/:id", protect, adminOnly, deleteMenu);

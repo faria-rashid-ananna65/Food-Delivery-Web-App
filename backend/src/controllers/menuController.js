@@ -31,18 +31,6 @@ export const getMenus = async (req, res, next) => {
   }
 };
 
-export const getMenuById = async (req, res, next) => {
-  try {
-    const menu = await Menu.findById(req.params.id).populate("category", "name image");
-    if (!menu) {
-      return res.status(404).json({ message: "Menu item not found" });
-    }
-    res.json({ success: true, menu });
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const createMenu = async (req, res, next) => {
   try {
     const { name, description, price, category, isAvailable } = req.body;

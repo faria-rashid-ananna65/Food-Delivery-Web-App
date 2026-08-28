@@ -1,7 +1,6 @@
 import express from "express";
 import {
   getCategories,
-  getCategoryById,
   createCategory,
   updateCategory,
   deleteCategory,
@@ -12,7 +11,6 @@ import upload from "../middleware/upload.js";
 const router = express.Router();
 
 router.get("/", getCategories);
-router.get("/:id", getCategoryById);
 router.post("/", protect, adminOnly, upload.single("image"), createCategory);
 router.put("/:id", protect, adminOnly, upload.single("image"), updateCategory);
 router.delete("/:id", protect, adminOnly, deleteCategory);
