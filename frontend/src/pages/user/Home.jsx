@@ -44,8 +44,7 @@ const Home = () => {
         ]);
         setCategories(catRes.data.categories);
         setMenuItems(menuRes.data.menus);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
+      } catch {
       } finally {
         setLoading(false);
       }
@@ -75,7 +74,7 @@ const Home = () => {
           <div
             key={index}
             className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
+              index === currentSlide ? "opacity-100 z-10 pointer-events-auto" : "opacity-0 pointer-events-none"
             }`}
           >
             <img
