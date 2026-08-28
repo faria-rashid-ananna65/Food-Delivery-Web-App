@@ -32,10 +32,6 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/admin", adminRoutes);
 
-app.get("/", (req, res) => {
-  res.json({ message: "Food Delivery API is running" });
-});
-
 app.use(errorHandler);
 
 export default app;
